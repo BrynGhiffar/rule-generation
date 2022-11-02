@@ -33,12 +33,13 @@ def get_support_table(transaction_list: list[list[int]], k: int, min_sup: float)
 def get_rule_table(transaction_list: list[list[int]], k: int, min_sup: float, min_cof: float):
     sp_tables = dict()
     i = 1
-    sp = get_support_table(transaction_list, i, min_sup)
-    while len(sp) > 0 and (i <= k):
+    while True:
         sp = get_support_table(transaction_list, i, min_sup)
+        if len(sp) == 0:
+            i -= 1
+            break
         sp_tables[i] = sp
         i += 1
-    i -= 1
     
     all_keys = []
     for j in range(1, i + 1):
